@@ -9,7 +9,9 @@
     "test": "ng test",
     "test:coverage": "ng test --coverage",
     "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "private": true,
   "packageManager": "npm@11.12.1",
@@ -34,9 +36,11 @@
     "@vitest/coverage-v8": "^4.1.5",
     "angular-eslint": "21.3.1",
     "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
     "jsdom": "^28.0.0",
     "postcss": "^8.5.10",
     "prettier": "^3.8.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.2.4",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.56.1",
