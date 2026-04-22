@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:coverage": "ng test --coverage",
-    "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose"
+    "commitlint": "commitlint --from HEAD~1 --to HEAD --verbose",
+    "lint": "ng lint"
   },
   "private": true,
   "packageManager": "npm@11.12.1",
@@ -28,13 +29,17 @@
     "@angular/compiler-cli": "^21.2.0",
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
+    "@eslint/js": "^10.0.1",
     "@tailwindcss/postcss": "^4.2.4",
     "@vitest/coverage-v8": "^4.1.5",
+    "angular-eslint": "21.3.1",
+    "eslint": "^10.0.3",
     "jsdom": "^28.0.0",
     "postcss": "^8.5.10",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.2.4",
     "typescript": "~5.9.2",
+    "typescript-eslint": "8.56.1",
     "vitest": "^4.0.8"
   }
 }
