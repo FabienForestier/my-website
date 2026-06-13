@@ -1,0 +1,245 @@
+{
+  "profile": {
+    "name": "Fabien Forestier",
+    "handle": "@fabienf",
+    "title": "Développeur Web Fullstack — Freelance",
+    "location": "Lyon, Auvergne-Rhône-Alpes, France",
+    "available": "Freelance · Disponible pour de nouvelles missions",
+    "intro": "Ingénieur en informatique, spécialisé dans le développement web avec Angular et Node. Plus de 9 ans d'expérience à livrer des applications fullstack JS, de la cybersécurité aux collectivités territoriales.",
+    "longerIntro": "De Stormshield à la SNCF en passant par EDF, la Métropole de Lyon, Volvo et Somfy, j'ai eu la chance de travailler pour des clients aux enjeux très différents. J'accompagne mes clients sur la définition du besoin métier, l'architecture du projet Angular, le développement d'un code testé et évolutif, la revue de code, et le déploiement. Travail d'équipe, humilité, communication efficace — convaincu qu'on va plus loin ensemble.",
+    "email": "ei.fabien.forestier@gmail.com",
+    "socials": [
+      { "label": "LinkedIn", "handle": "forestier-fabien", "url": "https://www.linkedin.com/in/forestier-fabien/" },
+      { "label": "Email", "handle": "ei.fabien.forestier@gmail.com", "url": "mailto:ei.fabien.forestier@gmail.com" },
+      { "label": "Location", "handle": "Lyon, France", "url": "https://maps.google.com/?q=Lyon" },
+      { "label": "Languages", "handle": "FR · EN · ES", "url": "#" }
+    ]
+  },
+  "experience": [
+    {
+      "role": "Développeur Full Stack",
+      "company": "EDF",
+      "companyNote": "Programme Vision 2035 · Nucléaire",
+      "period": "juil. 2024 — Aujourd'hui",
+      "duration": "1 an 10 mois",
+      "location": "Lyon, France",
+      "summary": "Plateforme stratégique de référencement des pièces de rechange pour les centrales nucléaires. Projet from scratch, hébergé sur AWS, qui remplace plusieurs outils existants vieillissants.",
+      "bullets": [
+        "Développement fullstack de nouvelles fonctionnalités en Angular et Node.js (Lambda AWS).",
+        "Tests unitaires et d'intégration avec Jest, garantissant qualité et fiabilité du code.",
+        "Conception et intégration des API GraphQL entre front-end et back-end.",
+        "Revues de code et amélioration continue des bonnes pratiques."
+      ],
+      "stack": ["Angular", "Node.js", "AWS Lambda", "GraphQL", "Jest"]
+    },
+    {
+      "role": "Développeur Angular",
+      "company": "SNCF Voyageurs",
+      "companyNote": "Maintenance des trains · Transilien",
+      "period": "juil. 2023 — nov. 2025",
+      "duration": "2 ans 5 mois",
+      "location": "Lyon, France",
+      "summary": "Refonte d'un outil Excel de simulation de capacité (calculs > 1h) en application web Angular/Java. UX modernisée et temps de calcul drastiquement réduits pour les décisionnaires des centres de maintenance.",
+      "bullets": [
+        "Développement de fonctionnalités Angular (formulaires, graphes…) et tests unitaires front.",
+        "Features et tests d'intégration ponctuels côté backend Java.",
+        "Maintien de l'architecture, montée de version d'Angular et des dépendances.",
+        "Accompagnement Clean Code et mise en place de tests unitaires.",
+        "Recommandé par Romain Granjon (SNCF) : « Son sérieux et sa rigueur ont permis d'assurer le delivery de la solution. »"
+      ],
+      "stack": ["Angular", "Java", "Jest", "TypeScript"]
+    },
+    {
+      "role": "Développeur Front-End",
+      "company": "Stormshield",
+      "companyNote": "Cybersécurité · SDS for Email",
+      "period": "déc. 2020 — juil. 2023",
+      "duration": "2 ans 8 mois",
+      "location": "Lyon, France",
+      "summary": "Développement de SDS for Email — solution de chiffrement de bout en bout pour les communications internes/externes — et migration vers Angular de la console d'admin SDS Encryption Portal.",
+      "bullets": [
+        "Développement de l'Addon Google pour SDS for Email (Apps Script, TypeScript).",
+        "Tests automatisés (unitaires, intégration, système, acceptance) et tests manuels.",
+        "Conception, découpage et spécification des User Stories.",
+        "Architecture de la base de code, mise en production, documentation technique et utilisateur."
+      ],
+      "stack": ["Angular", "TypeScript", "Apps Script", "PGP"]
+    },
+    {
+      "role": "Ingénieur Full Stack Sénior",
+      "company": "Neogeo Technologies",
+      "companyNote": "Cartographie · Géofoncier",
+      "period": "juin 2020 — sept. 2020",
+      "duration": "4 mois",
+      "location": "Lyon, France",
+      "summary": "Développement de fonctionnalités (dont cartographiques) en Vue.js pour plusieurs modules du portail Géofoncier.",
+      "bullets": [],
+      "stack": ["Vue.js", "JavaScript"]
+    },
+    {
+      "role": "Développeur Full Stack JS — Métropole de Lyon",
+      "company": "Sopra Steria",
+      "companyNote": "Portail OpenData de la Métropole",
+      "period": "mars 2018 — juin 2020",
+      "duration": "2 ans 4 mois",
+      "location": "Lyon, France",
+      "summary": "Refonte complète du portail Open Data de la Métropole de Lyon : nouvelle interface, recherche avancée et cartographies interactives.",
+      "bullets": [
+        "Architecture et développement from scratch du portail Open Data en Angular.",
+        "Micro-services basés sur Nest.js.",
+        "Authentification/autorisation via JWT (SSO).",
+        "Recherche, suggestion, auto-complétion, highlight via Elasticsearch.",
+        "Module de cartographie pour la visualisation de données géographiques (MapBoxGL JS).",
+        "Dockerisation de toutes les applications et CI/CD via GitLab."
+      ],
+      "stack": ["Angular", "Nest.js", "Elasticsearch", "MapBoxGL JS", "Docker", "GitLab CI"]
+    },
+    {
+      "role": "Développeur Full Stack — SDMIS",
+      "company": "Sopra Steria",
+      "companyNote": "Portail métier",
+      "period": "févr. 2018",
+      "duration": "1 mois",
+      "location": "Lyon, France",
+      "summary": "Mise en place d'un système d'authentification et d'autorisation sur un portail métier.",
+      "bullets": [],
+      "stack": ["Angular", "Symfony"]
+    },
+    {
+      "role": "Développeur Full Stack — Volvo",
+      "company": "Sopra Steria",
+      "companyNote": "Industrie · Portail métier",
+      "period": "déc. 2017 — janv. 2018",
+      "duration": "2 mois",
+      "location": "Lyon, France",
+      "summary": "Évolutions, nouvelles pages et correctifs de bug sur un portail métier (Kendo UI pour les composants graphiques).",
+      "bullets": [],
+      "stack": ["Angular", "Kendo UI"]
+    },
+    {
+      "role": "Développeur Backend JS & Cloud — PoC IoT / API Management",
+      "company": "Sopra Steria",
+      "companyNote": "Digilab · AWS",
+      "period": "sept. 2017 — nov. 2017",
+      "duration": "3 mois",
+      "location": "Lyon, France",
+      "summary": "PoC IoT (skill Alexa contrôlant un device simulé sur Raspberry Pi) et plateforme de remontée d'usage d'API avec dashboards.",
+      "bullets": [
+        "Skill Alexa interagissant avec AWS IoT pour contrôler un device (Raspberry Pi + LED).",
+        "API et chaîne de service pour remontée d'information et génération de dashboards."
+      ],
+      "stack": ["Node.js", "AWS IoT", "Lambda"]
+    },
+    {
+      "role": "Développeur JS & Cloud — Somfy",
+      "company": "Sopra Steria",
+      "companyNote": "Domotique · Tahoma",
+      "period": "août 2017",
+      "duration": "1 mois",
+      "location": "Lyon, France",
+      "summary": "Pilotage des scénarios Tahoma de Somfy via Alexa et Google Home.",
+      "bullets": [
+        "Smart Home Skill pour Alexa : découvrir et lancer les scénarios Tahoma.",
+        "Action Google Home pour piloter température et mode du thermostat."
+      ],
+      "stack": ["Node.js", "Alexa SDK", "Google Actions"]
+    },
+    {
+      "role": "Développeur Full Stack JS",
+      "company": "Sopra Steria",
+      "companyNote": "Digilab Lyon · Lancement",
+      "period": "mars 2017 — août 2017",
+      "duration": "6 mois",
+      "location": "Lyon, France",
+      "summary": "Plateforme d'agrégation et de reporting des statistiques d'usage d'applications mobiles. Accompagnement de l'ouverture du Digilab Sopra Steria de Lyon.",
+      "bullets": [
+        "Architecture micro-services sur AWS.",
+        "Back-end (collection, formatage, enregistrement) en Lambda Node.js.",
+        "Développements ponctuels côté Angular."
+      ],
+      "stack": ["Angular", "Node.js", "AWS Lambda", "DynamoDB", "API Gateway"]
+    },
+    {
+      "role": "Stagiaire",
+      "company": "Avant-Goût Studios",
+      "companyNote": "Application Footomaton",
+      "period": "mai 2016 — juil. 2016",
+      "duration": "3 mois",
+      "location": "France",
+      "summary": "Développement d'une API et d'un back-office en PHP/Symfony pour l'application Footomaton.",
+      "bullets": [],
+      "stack": ["PHP", "Symfony"]
+    }
+  ],
+  "skills": [
+    {
+      "group": "Au quotidien",
+      "items": [
+        { "name": "Angular", "level": 5 },
+        { "name": "TypeScript", "level": 5 },
+        { "name": "JavaScript", "level": 5 },
+        { "name": "HTML / CSS", "level": 5 },
+        { "name": "Jest", "level": 5 },
+        { "name": "Git / GitLab", "level": 5 }
+      ]
+    },
+    {
+      "group": "À l'aise sur",
+      "items": [
+        { "name": "Node.js", "level": 4 },
+        { "name": "NestJS", "level": 4 },
+        { "name": "GraphQL", "level": 4 },
+        { "name": "ReactJS", "level": 4 },
+        { "name": "VueJS", "level": 3 },
+        { "name": "Docker", "level": 4 }
+      ]
+    },
+    {
+      "group": "Cloud & Outils",
+      "items": [
+        { "name": "AWS Lambda", "level": 4 },
+        { "name": "AWS API Gateway", "level": 4 },
+        { "name": "Tailwind CSS", "level": 4 },
+        { "name": "Storybook", "level": 4 },
+        { "name": "MapBoxGL JS", "level": 3 },
+        { "name": "WebdriverIO", "level": 3 }
+      ]
+    }
+  ],
+  "education": {
+    "school": "Télécom Saint-Étienne",
+    "degree": "Diplôme d'ingénieur, Informatique",
+    "period": "2012 — 2017",
+    "location": "Saint-Étienne, France",
+    "extra": [
+      "Master en informatique — Données et Systèmes Connectés, Université Jean Monnet (2016–2017)",
+      "Computer Science exchange — Missouri Western State University (2015–2016)",
+      "Baccalauréat Scientifique SVT, option Physique — Lycée de Beauregard (2009–2012)"
+    ]
+  },
+  "languages": [
+    { "name": "Français", "level": "Native" },
+    { "name": "Anglais", "level": "Professional Working" },
+    { "name": "Espagnol", "level": "Elementary" }
+  ],
+  "certifications": [
+    "Full Stack Open Course — ReactJS, Redux, NodeJS"
+  ],
+  "recommendations": [
+    {
+      "name": "Romain Granjon",
+      "role": "Chef projet SI / Product Guide",
+      "company": "SNCF",
+      "date": "Jan 2024",
+      "text": "J'ai eu l'occasion de collaborer avec Fabien dans le cadre d'un projet d'une nouvelle application pour la SNCF et le compte de Transilien. C'était un vrai plaisir de travailler ensemble. Fabien a su apporter son expertise sur le développement de l'application ainsi que des bonnes pratiques dans les exigences de qualité de code. Son sérieux et sa rigueur ont permis de faire avancer le projet et d'assurer le delivery de la solution."
+    },
+    {
+      "name": "Loïc Souchon",
+      "role": "Consultant applications confirmé",
+      "company": "Cat-Amania",
+      "date": "Jun 2024",
+      "text": "J'ai beaucoup apprécié travailler avec Fabien. Il a une très bonne expérience Angular et est très pertinent pour de la conception, l'implémentation et le test de solution. J'ai beaucoup appris à ses côtés grâce à sa patience et la qualité de ses explications."
+    }
+  ],
+  "cvFile": "Fabien_Forestier_CV.pdf"
+}
