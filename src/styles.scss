@@ -1,1 +1,162 @@
-/* You can add global styles to this file, and also import other style files */
+/* Self-hosted fonts */
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/inter/800.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css';
+@import '@fontsource/jetbrains-mono/700.css';
+
+/* ─── Design tokens — dark theme (default) ─────────────────────────── */
+:root {
+  /* Desktop */
+  --desk-grad: radial-gradient(1400px 900px at 28% 18%, #1f2740 0%, #131826 45%, #080a10 100%);
+  --desk: #0d1117;
+
+  /* Window chrome */
+  --chrome: #1c2230;
+  --chrome-bar: #252c3d;
+  --chrome-border: #0a0d13;
+
+  /* Text */
+  --text: #e6e9ef;
+  --text-soft: rgba(230, 233, 239, 0.65);
+  --text-faint: rgba(230, 233, 239, 0.40);
+
+  /* Semantic colors */
+  --green: #7ee787;
+  --red: #ff6b6b;
+  --yellow: #ffd166;
+
+  /* Structural */
+  --rule: rgba(230, 233, 239, 0.08);
+  --card-bg: #11161f;
+  --hero-bg: linear-gradient(160deg, #1a2030 0%, #11161f 100%);
+
+  /* Glass surfaces */
+  --glass: rgba(13, 17, 23, 0.78);
+  --glass-panel: rgba(28, 34, 48, 0.92);
+  --dock-tile: rgba(255, 255, 255, 0.04);
+
+  /* Accent — blue (default) */
+  --accent: #8ab4ff;
+  --accent2: #c084fc;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+}
+
+/* ─── Dark accent palettes ──────────────────────────────────────────── */
+body[data-accent='green']  { --accent: #7ee787; --accent2: #8ab4ff; }
+body[data-accent='coral']  { --accent: #ff8a65; --accent2: #ffd166; }
+body[data-accent='violet'] { --accent: #c084fc; --accent2: #8ab4ff; }
+
+/* ─── Light theme ───────────────────────────────────────────────────── */
+body.theme-light {
+  --desk-grad: radial-gradient(1400px 900px at 28% 18%, #faf6e8 0%, #efe7cf 50%, #d8cda8 100%);
+  --desk: #e8e3d4;
+  --chrome: #fbf8ee;
+  --chrome-bar: #ece5cf;
+  --chrome-border: #9c9276;
+  --text: #23211a;
+  --text-soft: rgba(35, 33, 26, 0.7);
+  --text-faint: rgba(35, 33, 26, 0.45);
+  --green: #3a8c4a;
+  --red: #c2433d;
+  --yellow: #c08a1c;
+  --rule: rgba(35, 33, 26, 0.1);
+  --card-bg: #fdfaef;
+  --hero-bg: linear-gradient(160deg, #fefcf2 0%, #f5efdc 100%);
+  --glass: rgba(232, 227, 212, 0.85);
+  --glass-panel: rgba(251, 248, 238, 0.96);
+  --dock-tile: rgba(255, 255, 255, 0.5);
+  --accent: #3a5fb8;
+  --accent2: #8a4cb8;
+}
+
+/* ─── Light accent palettes ─────────────────────────────────────────── */
+body.theme-light[data-accent='green']  { --accent: #3a8c4a; --accent2: #3a5fb8; }
+body.theme-light[data-accent='coral']  { --accent: #c2433d; --accent2: #c08a1c; }
+body.theme-light[data-accent='violet'] { --accent: #7c3aed; --accent2: #3a5fb8; }
+
+/* ─── Global keyframes ──────────────────────────────────────────────── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
+}
+
+@keyframes boot-fade {
+  0%, 82% { opacity: 1; }
+  100%    { opacity: 0; pointer-events: none; }
+}
+
+@keyframes palette-in {
+  from { opacity: 0; transform: translate(-50%, -52%) scale(0.96); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Reset & base ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: var(--desk);
+}
+
+button { cursor: pointer; }
+
+/* ─── Print styles ──────────────────────────────────────────────────── */
+@media print {
+  @page { margin: 12mm; }
+
+  html, body {
+    background: #fff !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  body * { visibility: hidden !important; }
+
+  .cv-print,
+  .cv-print * { visibility: visible !important; }
+
+  .cv-print {
+    position: static !important;
+    inset: auto !important;
+    overflow: visible !important;
+    height: auto !important;
+    background: #fff !important;
+  }
+
+  .cv-no-print { display: none !important; }
+
+  .cv-grid { display: block !important; }
+
+  .cv-grid section {
+    width: 100% !important;
+    margin: 0 0 12px !important;
+    break-inside: avoid;
+    box-shadow: none !important;
+  }
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
