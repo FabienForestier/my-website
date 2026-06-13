@@ -1,47 +1,21 @@
-# CLAUDE.md — fabien.os Portfolio Project
+# CLAUDE.md — Angular 22 Portfolio Project
 
 ## Stack
-- **Angular 22** — standalone components, signals, `inject()` for DI
+- **Angular 22** — standalone components, signals, `inject()` for DI, `@Service()` for services
 - **Tailwind CSS v4** — CSS-first, no config file, `@theme` blocks for customization
 - **Vitest 4** — native via `@angular/build:unit-test`
 - **Angular ESLint 22** + **Prettier** (with `prettier-plugin-tailwindcss`)
 
 ---
 
-## Folder structure
-
-```
-src/app/
-├── core/                     # App-wide infrastructure (theme, layout, interceptors)
-│   ├── services/             # e.g. ThemeService
-│   └── layout/               # Global nav/footer (for future pages)
-├── shared/                   # Reusable, domain-agnostic components/pipes/utils
-│   └── components/
-│       └── icon/             # Inline SVG icon set
-└── desktop/                  # macOS desktop feature module
-    ├── pages/
-    │   └── desktop-shell/    # Routed entry point for the OS
-    ├── components/           # Sub-components (window, dock, menu-bar, apps…)
-    │   └── apps/             # App body components (profile, experience, skills…)
-    ├── services/             # ContentService, UiService, WindowManagerService
-    ├── models/               # TypeScript interfaces (content.types.ts)
-    └── config/               # Static config (apps.config.ts)
-```
-
----
-
-## Angular 22 conventions
+## Angular conventions
 
 ### Components
 - Always use **standalone components** (no NgModule)
 - Use `inject()` for dependency injection, not constructor injection
 - Prefer **signals** (`signal()`, `computed()`, `effect()`) over RxJS for local state
-- **No class name suffixes** — `class Profile` not `class ProfileComponent` (Angular 22 style guide)
-- File naming: `kebab-case.ts` / `.html` / `.scss` / `.spec.ts`
-- Selector prefix: `app-` (e.g. `app-profile`, `app-dock`)
-- Use `OnPush` change detection on all new components
-- Use `input()` / `output()` / `model()` signal APIs (not `@Input` / `@Output`)
-- Use `host` bindings instead of `@HostBinding` / `@HostListener`
+- File naming: `kebab-case.component.ts` / `.html` / `.scss` / `.spec.ts`
+- Selector prefix: `app-` (e.g. `app-hero`, `app-skills-list`)
 
 ```ts
 // Preferred pattern
@@ -49,20 +23,34 @@ src/app/
   selector: 'app-example',
   templateUrl: './example.html',
   styleUrl: './example.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Example {
+export class ExampleComponent {
   private readonly service = inject(ExampleService);
   readonly items = signal<Item[]>([]);
-  readonly label = input.required<string>();
+}
+```
+
+### Services
+- Always use `@Service()` decorator (Angular 22) instead of `@Injectable({ providedIn: 'root' })`
+- `@Service()` automatically provides the service in the root injector
+- Import `Service` from `@angular/core`
+
+```ts
+// Preferred pattern
+import { Service, signal } from '@angular/core';
+
+@Service()
+export class ExampleService {
+  readonly items = signal<Item[]>([]);
 }
 ```
 
 ### Styles
-- Design tokens (colors, shadows, radii) → CSS custom properties in `src/styles.scss`
-- Component styles → `.scss` files using `var(--token-name)`
-- Tailwind utilities for layout only; avoid duplicating theme tokens in Tailwind
-- **No inline color values** — always use CSS custom properties
+- Component styles → `.scss` files
+- Global styles → `src/styles.scss` (SCSS variables, fonts, resets)
+- Tailwind globals → `src/tailwind.css` (do not add SCSS here)
+- Use Tailwind utility classes directly in templates; avoid duplicating utilities in SCSS
+- Custom Tailwind tokens go in `src/styles.scss` using `@theme` blocks
 
 ### Testing
 - Test files: `*.spec.ts` co-located with source files
@@ -113,10 +101,10 @@ Types: feat | fix | chore | style | refactor | test | docs | ci | perf
 
 Examples:
 ```
-feat(desktop): add dock with app launcher tiles
-fix(window): correct clamping on viewport resize
-chore: upgrade angular to 22.0.1
-style(profile): adjust hero padding on compact mode
+feat(hero): add animated typing effect to headline
+fix(nav): correct active link highlight on scroll
+chore: upgrade angular to 21.3.0
+style(skills): adjust grid gap on mobile
 ```
 
 ---

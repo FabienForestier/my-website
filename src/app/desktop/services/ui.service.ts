@@ -1,11 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { Service, signal } from '@angular/core';
 
 export interface CtxMenuPosition {
   x: number;
   y: number;
 }
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class UiService {
   readonly paletteOpen = signal(false);
   readonly ctxMenu = signal<CtxMenuPosition | null>(null);

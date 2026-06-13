@@ -1,8 +1,8 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Service, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import type { ContentData } from '../models/content.types';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ContentService {
   private readonly http = inject(HttpClient);
 

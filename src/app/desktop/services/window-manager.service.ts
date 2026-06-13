@@ -1,4 +1,4 @@
-import { Injectable, signal, effect, computed } from '@angular/core';
+import { Service, signal, effect, computed } from '@angular/core';
 import { APPS } from '../config/apps.config';
 
 export interface WinState {
@@ -89,7 +89,7 @@ function clampResize(win: WinState, nw: number, nh: number): { w: number; h: num
   };
 }
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class WindowManagerService {
   private readonly _windows = signal<WinState[]>([]);
   private _zTop = APPS.length;
