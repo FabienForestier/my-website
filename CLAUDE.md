@@ -1,10 +1,10 @@
-# CLAUDE.md — Angular 22 Portfolio Project
+# CLAUDE.md — Angular 21 Portfolio Project
 
 ## Stack
-- **Angular 22** — standalone components, signals, `inject()` for DI, `@Service()` for services
+- **Angular 21** — standalone components, signals, `inject()` for DI
 - **Tailwind CSS v4** — CSS-first, no config file, `@theme` blocks for customization
 - **Vitest 4** — native via `@angular/build:unit-test`
-- **Angular ESLint 22** + **Prettier** (with `prettier-plugin-tailwindcss`)
+- **Angular ESLint 21** + **Prettier** (with `prettier-plugin-tailwindcss`)
 
 ---
 
@@ -25,23 +25,48 @@
   styleUrl: './example.scss',
 })
 export class ExampleComponent {
-  private readonly service = inject(ExampleService);
+  // 1. Public properties
   readonly items = signal<Item[]>([]);
+
+  // 2. Private properties
+  private readonly service = inject(ExampleService);
+
+  // 3. Public methods
+  loadItems(): void { ... }
+
+  // 4. Private methods
+  private filterItems(): Item[] { ... }
 }
 ```
 
-### Services
-- Always use `@Service()` decorator (Angular 22) instead of `@Injectable({ providedIn: 'root' })`
-- `@Service()` automatically provides the service in the root injector
-- Import `Service` from `@angular/core`
+### Class member ordering
+
+Inside every class (components, services, directives…), always follow this order:
+
+1. **Public properties** (including signals and injected tokens exposed publicly)
+2. **Private properties** (including `private readonly` injected services)
+3. **Constructor** (only when required; prefer `inject()` to avoid it)
+4. **Public methods**
+5. **Private methods**
 
 ```ts
-// Preferred pattern
-import { Service, signal } from '@angular/core';
-
-@Service()
+// ✅ Correct
 export class ExampleService {
-  readonly items = signal<Item[]>([]);
+  readonly data = signal<Item[]>([]);       // public property first
+
+  private readonly http = inject(HttpClient); // private property after
+
+  getData(): Observable<Item[]> { ... }     // public method
+
+  private mapResponse(r: unknown): Item[] { ... } // private method last
+}
+
+// ❌ Wrong — private members before public
+export class ExampleService {
+  private readonly http = inject(HttpClient);
+  readonly data = signal<Item[]>([]);
+  private mapResponse(r: unknown): Item[] { ... }
+  getData(): Observable<Item[]> { ... }
 }
 ```
 
@@ -110,5 +135,5 @@ style(skills): adjust grid gap on mobile
 ---
 
 ## MCP servers configured
-- **context7** — fetches up-to-date Angular 22 / Tailwind v4 docs on demand
+- **context7** — fetches up-to-date Angular 21 / Tailwind v4 docs on demand
 - **github** — manages repo, PRs, issues from Claude Code
