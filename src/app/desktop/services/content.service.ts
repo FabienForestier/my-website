@@ -1,6 +1,6 @@
 import { Service, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import type { ContentData } from '../models/content.types';
+import type { ContentData } from '../models/resume-content.types';
 
 @Service()
 export class ContentService {
@@ -11,7 +11,7 @@ export class ContentService {
   readonly error = signal<string | null>(null);
 
   constructor() {
-    this.http.get<ContentData>('assets/content.json').subscribe({
+    this.http.get<ContentData>('assets/resume-content.json').subscribe({
       next: (data) => {
         this.data.set(data);
         this.loading.set(false);
