@@ -1,0 +1,48 @@
+<div class="desktop">
+  <!-- Wallpaper -->
+  <div class="wallpaper"></div>
+
+  <!-- Window host — all windows are absolute-positioned inside here -->
+  <div class="window-host">
+    @for (app of apps; track app.id) {
+      @let win = wm.getWindow(app.id);
+      @if (win) {
+        <app-window [win]="win" [title]="app.title" [accentVar]="app.accentVar">
+          <div class="win-placeholder">
+            <app-dock-icon [name]="app.icon" [size]="32" />
+            <span>{{ app.title }}</span>
+          </div>
+        </app-window>
+      }
+    }
+  </div>
+
+  <!-- Dock -->
+  <nav class="dock" aria-label="App dock">
+    @for (app of apps; track app.id) {
+      @let win = wm.getWindow(app.id);
+      @let active = !!(win && win.open && !win.minimized);
+      <button
+        class="dock-btn"
+        [class.dock-btn--active]="active"
+        [title]="app.title"
+        (click)="onDockIconClick(app.id)"
+      >
+        <app-dock-icon [name]="app.icon" />
+        @if (active) {
+          <span class="dock-dot" [style.background]="'var(' + app.accentVar + ')'"></span>
+        }
+      </button>
+    }
+
+    <span class="dock-sep" role="separator"></span>
+
+    <button
+      class="dock-btn"
+      [title]="theme.dark() ? 'Switch to light theme' : 'Switch to dark theme'"
+      (click)="theme.toggle()"
+    >
+      <app-dock-icon [name]="theme.dark() ? 'sun' : 'moon'" [size]="19" />
+    </button>
+  </nav>
+</div>

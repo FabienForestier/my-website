@@ -1,0 +1,141 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.desktop {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-desk);
+}
+
+.wallpaper {
+  position: absolute;
+  inset: 0;
+  background: var(--desk-gradient);
+  pointer-events: none;
+
+  // Dot-grid overlay
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  // Accent glows
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        ellipse 700px 500px at 20% 30%,
+        color-mix(in srgb, var(--color-accent) 8%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 500px 400px at 75% 65%,
+        color-mix(in srgb, var(--color-accent2) 6%, transparent),
+        transparent 70%
+      );
+    pointer-events: none;
+  }
+}
+
+.window-host {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  // Let individual windows capture pointer events
+  > * {
+    pointer-events: auto;
+  }
+}
+
+// Placeholder shown inside windows before PR3 app bodies are built
+.win-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 100%;
+  color: var(--color-text-soft);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  opacity: 0.5;
+}
+
+// ── Dock ──────────────────────────────────────────────────────────────
+.dock {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--color-glass);
+  border: 1px solid var(--color-rule);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 18px;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  z-index: 100;
+}
+
+.dock-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  border: none;
+  background: var(--color-dock-tile);
+  box-shadow: inset 0 0 0 1px var(--color-rule);
+  color: var(--color-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.15s,
+    background 0.15s,
+    box-shadow 0.15s;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.06);
+  }
+
+  &--active {
+    background: color-mix(in srgb, var(--color-accent) 15%, transparent);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--color-accent) 40%, transparent),
+      0 2px 6px rgba(0, 0, 0, 0.2);
+    color: var(--color-accent);
+  }
+}
+
+.dock-dot {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.dock-sep {
+  width: 1px;
+  height: 26px;
+  background: var(--color-rule);
+  margin: 0 4px;
+}
