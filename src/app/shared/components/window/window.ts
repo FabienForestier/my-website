@@ -6,14 +6,14 @@ import type { WinState } from '../../../desktop/models/window';
 @Component({
   selector: 'app-window',
   templateUrl: './window.html',
-  styleUrl: './window.scss',
+  host: { class: 'contents' },
 })
 export class WindowComponent {
   readonly win = input.required<WinState>();
   readonly title = input.required<string>();
   readonly accentVar = input<string>('--color-accent');
 
-  private readonly wm = inject(WindowManagerService);
+  private readonly windowManager = inject(WindowManagerService);
   private readonly theme = inject(ThemeService);
   private readonly el = inject(ElementRef);
 
@@ -36,8 +36,8 @@ export class WindowComponent {
   readonly active = computed(() => this.dragging() || this.resizing());
 
   readonly visible = computed(() => {
-    const w = this.win();
-    return w.open && !w.minimized;
+    const windowState = this.win();
+    return windowState.open && !windowState.minimized;
   });
 
   readonly accentColor = computed(() => `var(${this.accentVar()})`);
@@ -49,22 +49,22 @@ export class WindowComponent {
   );
 
   readonly containerStyle = computed((): Record<string, string> => {
-    const w = this.win();
+    const windowState = this.win();
     const shown = this._shown();
     const dark = this.theme.dark();
-    const a = this.active();
+    const isActive = this.active();
     const accent = this.accentColor();
 
-    const boxShadow = a
+    const boxShadow = isActive
       ? `0 32px 80px rgba(0,0,0,${dark ? 0.65 : 0.32}), 0 0 0 1px color-mix(in srgb, ${accent} 40%, transparent), inset 0 1px 0 rgba(255,255,255,${dark ? 0.05 : 0.5})`
       : `0 12px 32px rgba(0,0,0,${dark ? 0.45 : 0.18}), inset 0 1px 0 rgba(255,255,255,${dark ? 0.03 : 0.3})`;
 
     const transition =
-      a || this.reduce
+      isActive || this.reduce
         ? 'box-shadow .25s'
         : 'transform .3s cubic-bezier(.2,.8,.25,1), opacity .26s ease, box-shadow .25s, left .2s, top .2s, width .2s, height .2s, border-radius .2s';
 
-    const hiddenTransform = this.computeHiddenTransform(w);
+    const hiddenTransform = this.computeHiddenTransform(windowState);
     const transform = shown ? 'translate(0,0) scale(1)' : hiddenTransform;
 
     const base: Record<string, string> = {
@@ -76,24 +76,24 @@ export class WindowComponent {
       transition,
       willChange: 'transform, opacity',
       transformOrigin: 'center center',
-      borderRadius: w.max ? '0' : '10px',
-      zIndex: String(w.z + 10),
+      borderRadius: windowState.max ? '0' : '10px',
+      zIndex: String(windowState.z + 10),
       display: 'flex',
       flexDirection: 'column',
       overflow: 'hidden',
     };
 
-    if (w.max) {
+    if (windowState.max) {
       return { ...base, position: 'fixed', left: '0', top: '28px', right: '0', bottom: '0' };
     }
 
     return {
       ...base,
       position: 'absolute',
-      left: `${w.x}px`,
-      top: `${w.y}px`,
-      width: `${w.w}px`,
-      height: `${w.h}px`,
+      left: `${windowState.x}px`,
+      top: `${windowState.y}px`,
+      width: `${windowState.w}px`,
+      height: `${windowState.h}px`,
     };
   });
 
@@ -103,20 +103,20 @@ export class WindowComponent {
       : false;
 
   private readonly animationEffect = effect((onCleanup) => {
-    const v = this.visible();
-    if (v) {
+    const isVisible = this.visible();
+    if (isVisible) {
       this._mounted.set(true);
       if (this.reduce) {
         this._shown.set(true);
         return;
       }
-      let rafId2 = 0;
-      const rafId1 = requestAnimationFrame(() => {
-        rafId2 = requestAnimationFrame(() => this._shown.set(true));
+      let secondRafId = 0;
+      const firstRafId = requestAnimationFrame(() => {
+        secondRafId = requestAnimationFrame(() => this._shown.set(true));
       });
       onCleanup(() => {
-        cancelAnimationFrame(rafId1);
-        cancelAnimationFrame(rafId2);
+        cancelAnimationFrame(firstRafId);
+        cancelAnimationFrame(secondRafId);
       });
     } else {
       this._exitKind.set(this.win().minimized ? 'minimize' : 'close');
@@ -125,30 +125,30 @@ export class WindowComponent {
         this._mounted.set(false);
         return;
       }
-      const tm = window.setTimeout(() => this._mounted.set(false), 320);
-      onCleanup(() => window.clearTimeout(tm));
+      const timeoutId = window.setTimeout(() => this._mounted.set(false), 320);
+      onCleanup(() => window.clearTimeout(timeoutId));
     }
   });
 
   onWindowMouseDown(): void {
-    this.wm.focus(this.win().id);
+    this.windowManager.focus(this.win().id);
   }
 
-  onTitlePointerDown(e: PointerEvent): void {
-    const w = this.win();
-    if (w.max) return;
-    if ((e.target as Element).closest('[data-no-drag]')) return;
-    e.preventDefault();
-    this.wm.focus(w.id);
+  onTitlePointerDown(event: PointerEvent): void {
+    const windowState = this.win();
+    if (windowState.max) return;
+    if ((event.target as Element).closest('[data-no-drag]')) return;
+    event.preventDefault();
+    this.windowManager.focus(windowState.id);
     this.dragging.set(true);
-    let lx = e.clientX;
-    let ly = e.clientY;
+    let lastX = event.clientX;
+    let lastY = event.clientY;
 
-    const onMove = (ev: PointerEvent): void => {
-      const s = this.scaleOf();
-      this.wm.move(w.id, (ev.clientX - lx) / s, (ev.clientY - ly) / s);
-      lx = ev.clientX;
-      ly = ev.clientY;
+    const onMove = (moveEvent: PointerEvent): void => {
+      const scale = this.scaleOf();
+      this.windowManager.move(windowState.id, (moveEvent.clientX - lastX) / scale, (moveEvent.clientY - lastY) / scale);
+      lastX = moveEvent.clientX;
+      lastY = moveEvent.clientY;
     };
     const onUp = (): void => {
       this.dragging.set(false);
@@ -159,23 +159,23 @@ export class WindowComponent {
     document.addEventListener('pointerup', onUp);
   }
 
-  onResizePointerDown(dir: string, e: PointerEvent): void {
-    const w = this.win();
-    if (w.max) return;
-    e.preventDefault();
-    e.stopPropagation();
-    this.wm.focus(w.id);
+  onResizePointerDown(dir: string, event: PointerEvent): void {
+    const windowState = this.win();
+    if (windowState.max) return;
+    event.preventDefault();
+    event.stopPropagation();
+    this.windowManager.focus(windowState.id);
     this.resizing.set(true);
-    let lx = e.clientX;
-    let ly = e.clientY;
+    let lastX = event.clientX;
+    let lastY = event.clientY;
 
-    const onMove = (ev: PointerEvent): void => {
-      const s = this.scaleOf();
-      const dx = (ev.clientX - lx) / s;
-      const dy = (ev.clientY - ly) / s;
-      this.wm.resize(w.id, dir.includes('r') ? dx : 0, dir.includes('b') ? dy : 0);
-      lx = ev.clientX;
-      ly = ev.clientY;
+    const onMove = (moveEvent: PointerEvent): void => {
+      const scale = this.scaleOf();
+      const deltaX = (moveEvent.clientX - lastX) / scale;
+      const deltaY = (moveEvent.clientY - lastY) / scale;
+      this.windowManager.resize(windowState.id, dir.includes('r') ? deltaX : 0, dir.includes('b') ? deltaY : 0);
+      lastX = moveEvent.clientX;
+      lastY = moveEvent.clientY;
     };
     const onUp = (): void => {
       this.resizing.set(false);
@@ -186,34 +186,34 @@ export class WindowComponent {
     document.addEventListener('pointerup', onUp);
   }
 
-  onClose(e: MouseEvent): void {
-    e.stopPropagation();
-    this.wm.close(this.win().id);
+  onClose(event: MouseEvent): void {
+    event.stopPropagation();
+    this.windowManager.close(this.win().id);
   }
 
-  onMinimize(e: MouseEvent): void {
-    e.stopPropagation();
-    this.wm.minimize(this.win().id);
+  onMinimize(event: MouseEvent): void {
+    event.stopPropagation();
+    this.windowManager.minimize(this.win().id);
   }
 
-  onToggleMax(e: MouseEvent): void {
-    e.stopPropagation();
-    this.wm.toggleMax(this.win().id);
+  onToggleMax(event: MouseEvent): void {
+    event.stopPropagation();
+    this.windowManager.toggleMax(this.win().id);
   }
 
   onDoubleClickTitleBar(): void {
-    this.wm.toggleMax(this.win().id);
+    this.windowManager.toggleMax(this.win().id);
   }
 
-  private computeHiddenTransform(w: WinState): string {
+  private computeHiddenTransform(windowState: WinState): string {
     if (this._exitKind() !== 'minimize') return 'scale(0.86)';
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const cx = w.max ? vw / 2 : w.x + w.w / 2;
-    const cy = w.max ? vh / 2 : w.y + w.h / 2;
-    const dx = vw / 2 - cx;
-    const dy = vh - cy;
-    return `translate(${dx}px, ${dy}px) scale(0.1)`;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const centerX = windowState.max ? viewportWidth / 2 : windowState.x + windowState.w / 2;
+    const centerY = windowState.max ? viewportHeight / 2 : windowState.y + windowState.h / 2;
+    const offsetX = viewportWidth / 2 - centerX;
+    const offsetY = viewportHeight - centerY;
+    return `translate(${offsetX}px, ${offsetY}px) scale(0.1)`;
   }
 
   private scaleOf(): number {

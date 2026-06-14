@@ -1,79 +1,92 @@
 @if (mounted()) {
-  <div class="win-container" [style]="containerStyle()" (mousedown)="onWindowMouseDown()">
+  <div [style]="containerStyle()" (mousedown)="onWindowMouseDown()">
     <!-- Title bar -->
     <div
-      class="win-titlebar"
-      [class.win-titlebar--max]="win().max"
+      class="h-8 shrink-0 border-b border-chrome-border flex items-center px-3 gap-2 select-none font-mono text-[12px] text-text"
+      [class.cursor-grab]="!win().max"
+      [class.cursor-default]="win().max"
       [style.background]="titleBarBg()"
       (pointerdown)="onTitlePointerDown($event)"
       (dblclick)="onDoubleClickTitleBar()"
     >
       <button
-        class="traffic-light traffic-light--red"
+        class="w-3 h-3 rounded-full border-none p-0 cursor-pointer relative flex items-center justify-center shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.2)] shrink-0 bg-red"
         data-no-drag
+        data-traffic-light="close"
         title="close"
         (mouseenter)="hoverClose.set(true)"
         (mouseleave)="hoverClose.set(false)"
         (click)="onClose($event)"
       >
         @if (hoverClose()) {
-          <span class="traffic-light__icon">✕</span>
+          <span class="text-[9px] font-extrabold text-black/65 font-[ui-monospace,monospace] leading-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">✕</span>
         }
       </button>
       <button
-        class="traffic-light traffic-light--yellow"
+        class="w-3 h-3 rounded-full border-none p-0 cursor-pointer relative flex items-center justify-center shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.2)] shrink-0 bg-yellow"
         data-no-drag
+        data-traffic-light="minimize"
         title="minimize"
         (mouseenter)="hoverMin.set(true)"
         (mouseleave)="hoverMin.set(false)"
         (click)="onMinimize($event)"
       >
         @if (hoverMin()) {
-          <span class="traffic-light__icon">−</span>
+          <span class="text-[9px] font-extrabold text-black/65 font-[ui-monospace,monospace] leading-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">−</span>
         }
       </button>
       <button
-        class="traffic-light traffic-light--green"
+        class="w-3 h-3 rounded-full border-none p-0 cursor-pointer relative flex items-center justify-center shadow-[inset_0_0_0_0.5px_rgba(0,0,0,0.2)] shrink-0 bg-green"
         data-no-drag
+        data-traffic-light="maximize"
         [title]="win().max ? 'restore' : 'maximize'"
         (mouseenter)="hoverMax.set(true)"
         (mouseleave)="hoverMax.set(false)"
         (click)="onToggleMax($event)"
       >
         @if (hoverMax()) {
-          <span class="traffic-light__icon">{{ win().max ? '↙' : '↗' }}</span>
+          <span class="text-[9px] font-extrabold text-black/65 font-[ui-monospace,monospace] leading-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">{{ win().max ? '↙' : '↗' }}</span>
         }
       </button>
 
-      <span class="win-title" [class.win-title--active]="active()">
-        <span class="win-title__dot" [style.color]="accentColor()">●</span>
+      <span
+        class="ml-2.5 flex-1 overflow-hidden text-ellipsis whitespace-nowrap"
+        [class.font-medium]="!active()"
+        [class.text-text-soft]="!active()"
+        [class.font-bold]="active()"
+        [class.text-text]="active()"
+      >
+        <span class="mr-1" [style.color]="accentColor()">●</span>
         {{ title() }}
       </span>
     </div>
 
     <!-- App content -->
-    <div class="win-body">
+    <div class="flex-1 overflow-hidden relative min-h-0">
       <ng-content />
     </div>
 
     <!-- Resize handles (hidden when maximized) -->
     @if (!win().max) {
       <div
-        class="win-resize win-resize--right"
+        class="absolute z-[5] top-0 -right-[3px] w-[6px] h-full cursor-ew-resize"
         data-no-drag
+        data-resize-handle
         (pointerdown)="onResizePointerDown('r', $event)"
       ></div>
       <div
-        class="win-resize win-resize--bottom"
+        class="absolute z-[5] left-0 -bottom-[3px] w-full h-[6px] cursor-ns-resize"
         data-no-drag
+        data-resize-handle
         (pointerdown)="onResizePointerDown('b', $event)"
       ></div>
       <div
-        class="win-resize win-resize--br"
+        class="absolute z-[6] -right-1 -bottom-1 w-4 h-4 cursor-nwse-resize"
         data-no-drag
+        data-resize-handle
         (pointerdown)="onResizePointerDown('br', $event)"
       >
-        <svg class="win-grip" viewBox="0 0 14 14" fill="currentColor">
+        <svg class="absolute right-[3px] bottom-[3px] w-[10px] h-[10px] opacity-50 text-text-soft" viewBox="0 0 14 14" fill="currentColor">
           <circle cx="11" cy="11" r="1" />
           <circle cx="11" cy="7" r="1" />
           <circle cx="7" cy="11" r="1" />

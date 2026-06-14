@@ -1,14 +1,14 @@
-<div class="desktop">
+<div class="relative w-full h-full overflow-hidden bg-desk">
   <!-- Wallpaper -->
-  <div class="wallpaper"></div>
+  <div class="absolute inset-0 pointer-events-none wallpaper"></div>
 
   <!-- Window host — all windows are absolute-positioned inside here -->
-  <div class="window-host">
+  <div class="absolute inset-0 pointer-events-none [&>*]:pointer-events-auto">
     @for (app of apps; track app.id) {
-      @let win = wm.getWindow(app.id);
-      @if (win) {
-        <app-window [win]="win" [title]="app.title" [accentVar]="app.accentVar">
-          <div class="win-placeholder">
+      @let windowState = windowManager.getWindow(app.id);
+      @if (windowState) {
+        <app-window [win]="windowState" [title]="app.title" [accentVar]="app.accentVar">
+          <div class="flex flex-col items-center justify-center gap-3 h-full text-text-soft font-mono text-[13px] opacity-50">
             <app-dock-icon [name]="app.icon" [size]="32" />
             <span>{{ app.title }}</span>
           </div>
@@ -18,27 +18,33 @@
   </div>
 
   <!-- Dock -->
-  <nav class="dock" aria-label="App dock">
+  <nav
+    class="absolute bottom-3.5 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2.5 py-2 bg-glass border border-rule backdrop-blur-[20px] backdrop-saturate-[180%] rounded-[18px] z-[100] shadow-[0_12px_40px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.07)]"
+    aria-label="App dock"
+  >
     @for (app of apps; track app.id) {
-      @let win = wm.getWindow(app.id);
-      @let active = !!(win && win.open && !win.minimized);
+      @let windowState = windowManager.getWindow(app.id);
+      @let active = !!(windowState && windowState.open && !windowState.minimized);
       <button
-        class="dock-btn"
-        [class.dock-btn--active]="active"
+        class="relative w-11 h-11 rounded-[11px] border-none bg-dock-tile shadow-[inset_0_0_0_1px_var(--color-rule)] text-text cursor-pointer flex items-center justify-center transition-[transform,background,box-shadow] duration-150 hover:-translate-y-1 hover:scale-[1.06]"
+        [class.dock-btn-active]="active"
         [title]="app.title"
         (click)="onDockIconClick(app.id)"
       >
         <app-dock-icon [name]="app.icon" />
         @if (active) {
-          <span class="dock-dot" [style.background]="'var(' + app.accentVar + ')'"></span>
+          <span
+            class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full"
+            [style.background]="'var(' + app.accentVar + ')'"
+          ></span>
         }
       </button>
     }
 
-    <span class="dock-sep" role="separator"></span>
+    <span class="w-px h-[26px] bg-rule mx-1" role="separator"></span>
 
     <button
-      class="dock-btn"
+      class="relative w-11 h-11 rounded-[11px] border-none bg-dock-tile shadow-[inset_0_0_0_1px_var(--color-rule)] text-text cursor-pointer flex items-center justify-center transition-[transform,background,box-shadow] duration-150 hover:-translate-y-1 hover:scale-[1.06]"
       [title]="theme.dark() ? 'Switch to light theme' : 'Switch to dark theme'"
       (click)="theme.toggle()"
     >

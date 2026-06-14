@@ -10,23 +10,24 @@ import { DockIconComponent } from '../../../shared/components/dock-icon/dock-ico
   templateUrl: './desktop-shell.html',
   styleUrl: './desktop-shell.scss',
   imports: [WindowComponent, DockIconComponent],
+  host: { class: 'block w-full h-full' },
 })
 export class DesktopShellComponent {
   readonly apps = APPS;
-  readonly wm = inject(WindowManagerService);
+  readonly windowManager = inject(WindowManagerService);
   readonly theme = inject(ThemeService);
 
   onDockIconClick(id: string): void {
-    const w = this.wm.getWindow(id);
-    if (!w) return;
-    if (w.open && !w.minimized) {
-      if (this.wm.topId() === id) {
-        this.wm.minimize(id);
+    const windowState = this.windowManager.getWindow(id);
+    if (!windowState) return;
+    if (windowState.open && !windowState.minimized) {
+      if (this.windowManager.topId() === id) {
+        this.windowManager.minimize(id);
       } else {
-        this.wm.focus(id);
+        this.windowManager.focus(id);
       }
     } else {
-      this.wm.open(id);
+      this.windowManager.open(id);
     }
   }
 }

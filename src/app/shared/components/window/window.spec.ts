@@ -54,7 +54,7 @@ describe('WindowComponent', () => {
     await new Promise((r) => setTimeout(r, 50));
     fixture.detectChanges();
     const spy = vi.spyOn(wm, 'close');
-    const btn: HTMLButtonElement = fixture.nativeElement.querySelector('.traffic-light--red');
+    const btn: HTMLButtonElement = fixture.nativeElement.querySelector('[data-traffic-light="close"]');
     btn.click();
     expect(spy).toHaveBeenCalledWith('profile');
   });
@@ -65,7 +65,7 @@ describe('WindowComponent', () => {
     await new Promise((r) => setTimeout(r, 50));
     fixture.detectChanges();
     const spy = vi.spyOn(wm, 'minimize');
-    const btn: HTMLButtonElement = fixture.nativeElement.querySelector('.traffic-light--yellow');
+    const btn: HTMLButtonElement = fixture.nativeElement.querySelector('[data-traffic-light="minimize"]');
     btn.click();
     expect(spy).toHaveBeenCalledWith('profile');
   });
@@ -76,7 +76,7 @@ describe('WindowComponent', () => {
     await new Promise((r) => setTimeout(r, 50));
     fixture.detectChanges();
     const spy = vi.spyOn(wm, 'toggleMax');
-    const btn: HTMLButtonElement = fixture.nativeElement.querySelector('.traffic-light--green');
+    const btn: HTMLButtonElement = fixture.nativeElement.querySelector('[data-traffic-light="maximize"]');
     btn.click();
     expect(spy).toHaveBeenCalledWith('profile');
   });
@@ -86,7 +86,7 @@ describe('WindowComponent', () => {
     fixture.detectChanges();
     await new Promise((r) => setTimeout(r, 50));
     fixture.detectChanges();
-    const handle = fixture.nativeElement.querySelector('.win-resize');
+    const handle = fixture.nativeElement.querySelector('[data-resize-handle]');
     expect(handle).toBeNull();
   });
 });
