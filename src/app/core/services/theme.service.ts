@@ -7,12 +7,10 @@ export class ThemeService {
   readonly dark = signal(true);
   readonly accent = signal<AccentColor>('blue');
 
-  constructor() {
-    effect(() => {
-      document.body.classList.toggle('theme-light', !this.dark());
-      document.body.dataset['accent'] = this.accent();
-    });
-  }
+  private readonly applyThemeEffect = effect(() => {
+    document.body.classList.toggle('theme-light', !this.dark());
+    document.body.dataset['accent'] = this.accent();
+  });
 
   toggle(): void {
     this.dark.update((d) => !d);

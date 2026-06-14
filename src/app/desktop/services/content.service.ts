@@ -1,4 +1,5 @@
-import { Service, inject, signal } from '@angular/core';
+import { Service, inject } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { HttpClient } from '@angular/common/http';
 import type { ContentData } from '../models/resume-content.types';
 
@@ -6,20 +7,7 @@ import type { ContentData } from '../models/resume-content.types';
 export class ContentService {
   private readonly http = inject(HttpClient);
 
-  readonly data = signal<ContentData | null>(null);
-  readonly loading = signal(true);
-  readonly error = signal<string | null>(null);
-
-  constructor() {
-    this.http.get<ContentData>('assets/resume-content.json').subscribe({
-      next: (data) => {
-        this.data.set(data);
-        this.loading.set(false);
-      },
-      error: (err) => {
-        this.error.set(String(err));
-        this.loading.set(false);
-      },
-    });
-  }
+  readonly content = rxResource({
+    loader: () => this.http.get<ContentData>('assets/resume-content.json'),
+  });
 }
