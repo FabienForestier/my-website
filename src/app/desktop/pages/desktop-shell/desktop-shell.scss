@@ -1,0 +1,30 @@
+// Dot-grid overlay and accent glows use ::before/::after — cannot be expressed as Tailwind template classes
+.wallpaper {
+  background: var(--desk-gradient);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        ellipse 700px 500px at 20% 30%,
+        color-mix(in srgb, var(--color-accent) 8%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 500px 400px at 75% 65%,
+        color-mix(in srgb, var(--color-accent2) 6%, transparent),
+        transparent 70%
+      );
+    pointer-events: none;
+  }
+}
