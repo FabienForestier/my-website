@@ -1,4 +1,10 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npm test *)",
+      "Bash(git commit *)"
+    ]
+  },
   "hooks": {
     "PostToolUse": [
       {
@@ -16,11 +22,17 @@
   "mcpServers": {
     "context7": {
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp"]
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
     },
     "github": {
       "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ]
     }
   }
 }
