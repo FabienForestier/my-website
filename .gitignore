@@ -46,3 +46,6 @@ Thumbs.db
 # Claude Code local settings (may contain secrets)
 .claude/settings.local.json
 .claude/settings.json
+
+# Design handoff reference material (prototype only, not source code)
+/design/
