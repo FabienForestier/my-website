@@ -1,1 +1,41 @@
 @import "tailwindcss";
+
+/* ─── Design tokens — dark theme (default) ─────────────────────────── */
+@theme {
+  /* Desktop */
+  --color-desk: #0d1117;
+  --desk-gradient: radial-gradient(1400px 900px at 28% 18%, #1f2740 0%, #131826 45%, #080a10 100%);
+
+  /* Window chrome */
+  --color-chrome: #1c2230;
+  --color-chrome-bar: #252c3d;
+  --color-chrome-border: #0a0d13;
+
+  /* Text */
+  --color-text: #e6e9ef;
+  --color-text-soft: rgba(230, 233, 239, 0.65);
+  --color-text-faint: rgba(230, 233, 239, 0.40);
+
+  /* Semantic colors */
+  --color-green: #7ee787;
+  --color-red: #ff6b6b;
+  --color-yellow: #ffd166;
+
+  /* Structural */
+  --color-rule: rgba(230, 233, 239, 0.08);
+  --color-card-bg: #11161f;
+  --hero-gradient: linear-gradient(160deg, #1a2030 0%, #11161f 100%);
+
+  /* Glass surfaces */
+  --color-glass: rgba(13, 17, 23, 0.78);
+  --color-glass-panel: rgba(28, 34, 48, 0.92);
+  --color-dock-tile: rgba(255, 255, 255, 0.04);
+
+  /* Accent — blue (default) */
+  --color-accent: #8ab4ff;
+  --color-accent2: #c084fc;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+}

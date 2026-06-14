@@ -1,5 +1,5 @@
 import type { AppMeta } from '../config/apps.config';
-import type { WinState } from '../models/window.types';
+import type { WinState } from '../models/window';
 
 export const MENU_BAR_H = 28;
 export const DOCK_H = 84;

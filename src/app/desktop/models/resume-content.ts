@@ -59,7 +59,7 @@ export interface Recommendation {
   text: string;
 }
 
-export interface ContentData {
+export interface Resume {
   profile: Profile;
   experience: Experience[];
   skills: SkillGroup[];

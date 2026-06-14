@@ -8,8 +8,8 @@ import {
   vh,
   MENU_BAR_H,
   DOCK_H,
-} from '../helpers/window-layout.helpers';
-import type { WinState } from '../models/window.types';
+} from '../helpers/window-layout';
+import type { WinState } from '../models/window';
 
 const LS_KEY = 'fabienos.layout.v1';
 

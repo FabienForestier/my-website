@@ -9,9 +9,9 @@ import {
   buildDefaults,
   clampMove,
   clampResize,
-} from './window-layout.helpers';
+} from './window-layout';
 import type { AppMeta } from '../config/apps.config';
-import type { WinState } from '../models/window.types';
+import type { WinState } from '../models/window';
 
 const MOCK_APPS: readonly AppMeta[] = [
   { id: 'profile',  title: 'Profile',    icon: 'profile',  accentVar: '--color-accent',  defaultOpen: true  },

@@ -14,8 +14,8 @@
 - Always use **standalone components** (no NgModule)
 - Use `inject()` for dependency injection, not constructor injection
 - Prefer **signals** (`signal()`, `computed()`, `effect()`) over RxJS for local state
-- Always set `changeDetection: ChangeDetectionStrategy.OnPush` on every component
-- File naming: `kebab-case.component.ts` / `.html` / `.scss` / `.spec.ts`
+- **Do NOT specify `changeDetection`** — `OnPush` is the default in Angular 22 for signal-based components; declaring it is redundant
+- File naming: **no type suffixes** — use only the feature name in kebab-case (e.g. `theme.ts`, `window-layout.ts`, `resume-content.ts`). No `.component`, `.service`, `.helper`, `.types` suffixes. Exception: `.spec.ts` for test files and `.html`/`.scss` for component templates/styles.
 - Selector prefix: `app-` (e.g. `app-hero`, `app-skills-list`)
 
 ```ts
@@ -24,7 +24,6 @@
   selector: 'app-example',
   templateUrl: './example.html',
   styleUrl: './example.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExampleComponent {
   // 1. Public properties
@@ -138,9 +137,10 @@ Reusable pure functions (layout calculations, geometry clamping, etc.) that do n
 
 ### Styles
 - Component styles → `.scss` files
-- Global styles → `src/styles.scss` (fonts, resets, `@theme` design tokens)
-- Tailwind entry point → `src/tailwind.css` (`@import "tailwindcss"` only)
+- Global styles → `src/styles.scss` (fonts, resets, runtime theme overrides)
+- Tailwind entry point → `src/tailwind.css` — contains `@import "tailwindcss"` **and** the `@theme` design token block
 - Use Tailwind utility classes directly in templates; avoid duplicating utilities in SCSS
+- **All design tokens go in `src/tailwind.css` inside `@theme {}`** — this is the Tailwind v4 equivalent of `tailwind.config.js`. Never put `@theme` in `styles.scss`.
 - **No raw CSS variables** — all design tokens must be defined in `@theme` blocks using `--color-*` naming; never use a bare `:root { --var: value }` block
 
 ```css
