@@ -9,8 +9,16 @@
     "longerIntro": "De Stormshield à la SNCF en passant par EDF, la Métropole de Lyon, Volvo et Somfy, j'ai eu la chance de travailler pour des clients aux enjeux très différents. J'accompagne mes clients sur la définition du besoin métier, l'architecture du projet Angular, le développement d'un code testé et évolutif, la revue de code, et le déploiement. Travail d'équipe, humilité, communication efficace — convaincu qu'on va plus loin ensemble.",
     "email": "ei.fabien.forestier@gmail.com",
     "socials": [
-      { "label": "LinkedIn", "handle": "forestier-fabien", "url": "https://www.linkedin.com/in/forestier-fabien/" },
-      { "label": "Email", "handle": "ei.fabien.forestier@gmail.com", "url": "mailto:ei.fabien.forestier@gmail.com" },
+      {
+        "label": "LinkedIn",
+        "handle": "forestier-fabien",
+        "url": "https://www.linkedin.com/in/forestier-fabien/"
+      },
+      {
+        "label": "Email",
+        "handle": "ei.fabien.forestier@gmail.com",
+        "url": "mailto:ei.fabien.forestier@gmail.com"
+      },
       { "label": "Location", "handle": "Lyon, France", "url": "https://maps.google.com/?q=Lyon" },
       { "label": "Languages", "handle": "FR · EN · ES", "url": "#" }
     ]
@@ -222,9 +230,7 @@
     { "name": "Anglais", "level": "Professional Working" },
     { "name": "Espagnol", "level": "Elementary" }
   ],
-  "certifications": [
-    "Full Stack Open Course — ReactJS, Redux, NodeJS"
-  ],
+  "certifications": ["Full Stack Open Course — ReactJS, Redux, NodeJS"],
   "recommendations": [
     {
       "name": "Romain Granjon",

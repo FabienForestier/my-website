@@ -10,9 +10,18 @@
 @import '@fontsource/jetbrains-mono/700.css';
 
 /* ─── Dark accent palettes ──────────────────────────────────────────── */
-body[data-accent='green']  { --color-accent: #7ee787; --color-accent2: #8ab4ff; }
-body[data-accent='coral']  { --color-accent: #ff8a65; --color-accent2: #ffd166; }
-body[data-accent='violet'] { --color-accent: #c084fc; --color-accent2: #8ab4ff; }
+body[data-accent='green'] {
+  --color-accent: #7ee787;
+  --color-accent2: #8ab4ff;
+}
+body[data-accent='coral'] {
+  --color-accent: #ff8a65;
+  --color-accent2: #ffd166;
+}
+body[data-accent='violet'] {
+  --color-accent: #c084fc;
+  --color-accent2: #8ab4ff;
+}
 
 /* ─── Light theme ───────────────────────────────────────────────────── */
 body.theme-light {
@@ -38,35 +47,70 @@ body.theme-light {
 }
 
 /* ─── Light accent palettes ─────────────────────────────────────────── */
-body.theme-light[data-accent='green']  { --color-accent: #3a8c4a; --color-accent2: #3a5fb8; }
-body.theme-light[data-accent='coral']  { --color-accent: #c2433d; --color-accent2: #c08a1c; }
-body.theme-light[data-accent='violet'] { --color-accent: #7c3aed; --color-accent2: #3a5fb8; }
+body.theme-light[data-accent='green'] {
+  --color-accent: #3a8c4a;
+  --color-accent2: #3a5fb8;
+}
+body.theme-light[data-accent='coral'] {
+  --color-accent: #c2433d;
+  --color-accent2: #c08a1c;
+}
+body.theme-light[data-accent='violet'] {
+  --color-accent: #7c3aed;
+  --color-accent2: #3a5fb8;
+}
 
 /* ─── Global keyframes ──────────────────────────────────────────────── */
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.45; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
 }
 
 @keyframes boot-fade {
-  0%, 82% { opacity: 1; }
-  100%    { opacity: 0; pointer-events: none; }
+  0%,
+  82% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 @keyframes palette-in {
-  from { opacity: 0; transform: translate(-50%, -52%) scale(0.96); }
-  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  from {
+    opacity: 0;
+    transform: translate(-50%, -52%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 @keyframes overlay-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* ─── Reset & base ──────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -76,22 +120,31 @@ html, body {
   background: var(--color-desk);
 }
 
-button { cursor: pointer; }
+button {
+  cursor: pointer;
+}
 
 /* ─── Print styles ──────────────────────────────────────────────────── */
 @media print {
-  @page { margin: 12mm; }
+  @page {
+    margin: 12mm;
+  }
 
-  html, body {
+  html,
+  body {
     background: #fff !important;
     height: auto !important;
     overflow: visible !important;
   }
 
-  body * { visibility: hidden !important; }
+  body * {
+    visibility: hidden !important;
+  }
 
   .cv-print,
-  .cv-print * { visibility: visible !important; }
+  .cv-print * {
+    visibility: visible !important;
+  }
 
   .cv-print {
     position: static !important;
@@ -101,9 +154,13 @@ button { cursor: pointer; }
     background: #fff !important;
   }
 
-  .cv-no-print { display: none !important; }
+  .cv-no-print {
+    display: none !important;
+  }
 
-  .cv-grid { display: block !important; }
+  .cv-grid {
+    display: block !important;
+  }
 
   .cv-grid section {
     width: 100% !important;
@@ -115,7 +172,9 @@ button { cursor: pointer; }
 
 /* ─── Reduced motion ────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }

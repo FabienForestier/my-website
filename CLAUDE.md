@@ -1,6 +1,7 @@
 # CLAUDE.md — Angular 22 Portfolio Project
 
 ## Stack
+
 - **Angular 22** — standalone components, signals, `inject()` for DI, `@Service()` decorator
 - **Tailwind CSS v4** — CSS-first, no config file, `@theme` blocks for customization
 - **Vitest 4** — native via `@angular/build:unit-test`
@@ -11,6 +12,7 @@
 ## Angular conventions
 
 ### Components
+
 - Always use **standalone components** (no NgModule)
 - Use `inject()` for dependency injection, not constructor injection
 - Prefer **signals** (`signal()`, `computed()`, `effect()`) over RxJS for local state
@@ -106,7 +108,9 @@ export class ThemeService {
 @Service()
 export class ThemeService {
   constructor() {
-    effect(() => { document.body.classList.toggle('theme-light', !this.dark()); });
+    effect(() => {
+      document.body.classList.toggle('theme-light', !this.dark());
+    });
   }
 }
 ```
@@ -136,6 +140,7 @@ export class ContentService {
 Reusable pure functions (layout calculations, geometry clamping, etc.) that do not need DI belong in a **helpers folder** (`src/app/<feature>/helpers/`) as plain TypeScript functions — not as service methods. Each helper file must have a co-located `*.spec.ts` with unit tests.
 
 ### Styles
+
 - Component styles → `.scss` files
 - Global styles → `src/styles.scss` (fonts, resets, runtime theme overrides)
 - Tailwind entry point → `src/tailwind.css` — contains `@import "tailwindcss"` **and** the `@theme` design token block
@@ -159,6 +164,7 @@ Reusable pure functions (layout calculations, geometry clamping, etc.) that do n
 ```
 
 ### Testing
+
 - Test files: `*.spec.ts` co-located with source files
 - Use native `async/await` — **no** `fakeAsync`, `flush`, or `waitForAsync` (not supported with Vitest)
 - Use `vi.useFakeTimers()` for timer mocking
@@ -169,16 +175,16 @@ Reusable pure functions (layout calculations, geometry clamping, etc.) that do n
 
 ## Scripts reference
 
-| Script | Command |
-|---|---|
-| Dev server | `npm start` |
-| Production build | `npm run build` |
-| Tests | `npm test` |
-| Tests + coverage | `npm run test:coverage` |
-| Lint | `npm run lint` |
-| Format | `npm run format` |
-| Check format | `npm run format:check` |
-| Validate last commit | `npm run commitlint` |
+| Script               | Command                 |
+| -------------------- | ----------------------- |
+| Dev server           | `npm start`             |
+| Production build     | `npm run build`         |
+| Tests                | `npm test`              |
+| Tests + coverage     | `npm run test:coverage` |
+| Lint                 | `npm run lint`          |
+| Format               | `npm run format`        |
+| Check format         | `npm run format:check`  |
+| Validate last commit | `npm run commitlint`    |
 
 ---
 
@@ -206,6 +212,7 @@ Types: feat | fix | chore | style | refactor | test | docs | ci | perf
 ```
 
 Examples:
+
 ```
 feat(hero): add animated typing effect to headline
 fix(nav): correct active link highlight on scroll
@@ -216,5 +223,6 @@ style(skills): adjust grid gap on mobile
 ---
 
 ## MCP servers configured
+
 - **context7** — fetches up-to-date Angular 22 / Tailwind v4 docs on demand
 - **github** — manages repo, PRs, issues from Claude Code

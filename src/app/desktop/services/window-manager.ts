@@ -27,9 +27,22 @@ export class WindowManagerService {
   });
 
   private readonly persistEffect = effect(() => {
-    const snapshot = this._windows().map(({ id, x, y, w, h, z, open, minimized, max }) =>
-      ({ id, x, y, w, h, z, open, minimized, max }));
-    try { localStorage.setItem(LS_KEY, JSON.stringify(snapshot)); } catch { /* ignore */ }
+    const snapshot = this._windows().map(({ id, x, y, w, h, z, open, minimized, max }) => ({
+      id,
+      x,
+      y,
+      w,
+      h,
+      z,
+      open,
+      minimized,
+      max,
+    }));
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify(snapshot));
+    } catch {
+      /* ignore */
+    }
   });
 
   focus(id: string): void {
@@ -80,11 +93,17 @@ export class WindowManagerService {
   }
 
   closeAll(): void {
-    this._windows.update((ws) => ws.map((w) => ({ ...w, open: false, minimized: false, max: false })));
+    this._windows.update((ws) =>
+      ws.map((w) => ({ ...w, open: false, minimized: false, max: false })),
+    );
   }
 
   reset(): void {
-    try { localStorage.removeItem(LS_KEY); } catch { /* ignore */ }
+    try {
+      localStorage.removeItem(LS_KEY);
+    } catch {
+      /* ignore */
+    }
     this._windows.set(buildDefaults(APPS));
   }
 
@@ -112,11 +131,23 @@ export class WindowManagerService {
       const saved: Partial<WinState>[] = JSON.parse(raw);
       return defaults.map((d) => {
         const s = saved.find((x) => x.id === d.id);
-        return s ? { ...d, x: s.x ?? d.x, y: s.y ?? d.y, w: s.w ?? d.w, h: s.h ?? d.h,
-                     z: s.z ?? d.z, open: s.open ?? d.open,
-                     minimized: s.minimized ?? d.minimized, max: s.max ?? d.max } : d;
+        return s
+          ? {
+              ...d,
+              x: s.x ?? d.x,
+              y: s.y ?? d.y,
+              w: s.w ?? d.w,
+              h: s.h ?? d.h,
+              z: s.z ?? d.z,
+              open: s.open ?? d.open,
+              minimized: s.minimized ?? d.minimized,
+              max: s.max ?? d.max,
+            }
+          : d;
       });
-    } catch { return defaults; }
+    } catch {
+      return defaults;
+    }
   }
 
   private patch(id: string, fn: (w: WinState) => WinState): void {

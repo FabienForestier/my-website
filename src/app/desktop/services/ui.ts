@@ -12,14 +12,28 @@ export class UiService {
   readonly cvMode = signal(false);
   readonly bootDone = signal(false);
 
-  openPalette(): void  { this.paletteOpen.set(true); }
-  closePalette(): void { this.paletteOpen.set(false); }
-  togglePalette(): void { this.paletteOpen.update((v) => !v); }
+  openPalette(): void {
+    this.paletteOpen.set(true);
+  }
+  closePalette(): void {
+    this.paletteOpen.set(false);
+  }
+  togglePalette(): void {
+    this.paletteOpen.update((v) => !v);
+  }
 
-  openCtxMenu(pos: CtxMenuPosition): void { this.ctxMenu.set(pos); }
-  closeCtxMenu(): void { this.ctxMenu.set(null); }
+  openCtxMenu(pos: CtxMenuPosition): void {
+    this.ctxMenu.set(pos);
+  }
+  closeCtxMenu(): void {
+    this.ctxMenu.set(null);
+  }
 
-  toggleCvMode(): void { this.cvMode.update((v) => !v); }
+  toggleCvMode(): void {
+    this.cvMode.update((v) => !v);
+  }
 
-  markBootDone(): void { this.bootDone.set(true); }
+  markBootDone(): void {
+    this.bootDone.set(true);
+  }
 }

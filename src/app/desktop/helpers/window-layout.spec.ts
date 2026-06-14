@@ -14,19 +14,56 @@ import type { AppMeta } from '../config/apps.config';
 import type { WinState } from '../models/window';
 
 const MOCK_APPS: readonly AppMeta[] = [
-  { id: 'profile',  title: 'Profile',    icon: 'profile',  accentVar: '--color-accent',  defaultOpen: true  },
-  { id: 'work',     title: 'Experience', icon: 'work',     accentVar: '--color-accent2', defaultOpen: false },
-  { id: 'terminal', title: 'Terminal',   icon: 'terminal', accentVar: '--color-accent',  defaultOpen: false },
+  {
+    id: 'profile',
+    title: 'Profile',
+    icon: 'profile',
+    accentVar: '--color-accent',
+    defaultOpen: true,
+  },
+  {
+    id: 'work',
+    title: 'Experience',
+    icon: 'work',
+    accentVar: '--color-accent2',
+    defaultOpen: false,
+  },
+  {
+    id: 'terminal',
+    title: 'Terminal',
+    icon: 'terminal',
+    accentVar: '--color-accent',
+    defaultOpen: false,
+  },
 ];
 
 function makeWin(overrides: Partial<WinState> = {}): WinState {
-  return { id: 'test', x: 100, y: 100, w: 400, h: 300, z: 1, open: true, minimized: false, max: false, ...overrides };
+  return {
+    id: 'test',
+    x: 100,
+    y: 100,
+    w: 400,
+    h: 300,
+    z: 1,
+    open: true,
+    minimized: false,
+    max: false,
+    ...overrides,
+  };
 }
 
 describe('window-layout helpers', () => {
   beforeEach(() => {
-    Object.defineProperty(window, 'innerWidth',  { value: 1400, writable: true, configurable: true });
-    Object.defineProperty(window, 'innerHeight', { value: 900,  writable: true, configurable: true });
+    Object.defineProperty(window, 'innerWidth', {
+      value: 1400,
+      writable: true,
+      configurable: true,
+    });
+    Object.defineProperty(window, 'innerHeight', {
+      value: 900,
+      writable: true,
+      configurable: true,
+    });
   });
 
   describe('constants', () => {
@@ -61,8 +98,8 @@ describe('window-layout helpers', () => {
 
     it('respects defaultOpen', () => {
       const result = buildDefaults(MOCK_APPS);
-      expect(result[0].open).toBe(true);   // profile: defaultOpen true
-      expect(result[1].open).toBe(false);  // work: defaultOpen false
+      expect(result[0].open).toBe(true); // profile: defaultOpen true
+      expect(result[1].open).toBe(false); // work: defaultOpen false
     });
 
     it('starts all windows as not minimized and not maximized', () => {

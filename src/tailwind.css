@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* ─── Design tokens — dark theme (default) ─────────────────────────── */
 @theme {
@@ -14,7 +14,7 @@
   /* Text */
   --color-text: #e6e9ef;
   --color-text-soft: rgba(230, 233, 239, 0.65);
-  --color-text-faint: rgba(230, 233, 239, 0.40);
+  --color-text-faint: rgba(230, 233, 239, 0.4);
 
   /* Semantic colors */
   --color-green: #7ee787;
