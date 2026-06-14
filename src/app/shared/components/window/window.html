@@ -1,0 +1,84 @@
+@if (mounted()) {
+  <div class="win-container" [style]="containerStyle()" (mousedown)="onWindowMouseDown()">
+    <!-- Title bar -->
+    <div
+      class="win-titlebar"
+      [class.win-titlebar--max]="win().max"
+      [style.background]="titleBarBg()"
+      (pointerdown)="onTitlePointerDown($event)"
+      (dblclick)="onDoubleClickTitleBar()"
+    >
+      <button
+        class="traffic-light traffic-light--red"
+        data-no-drag
+        title="close"
+        (mouseenter)="hoverClose.set(true)"
+        (mouseleave)="hoverClose.set(false)"
+        (click)="onClose($event)"
+      >
+        @if (hoverClose()) {
+          <span class="traffic-light__icon">✕</span>
+        }
+      </button>
+      <button
+        class="traffic-light traffic-light--yellow"
+        data-no-drag
+        title="minimize"
+        (mouseenter)="hoverMin.set(true)"
+        (mouseleave)="hoverMin.set(false)"
+        (click)="onMinimize($event)"
+      >
+        @if (hoverMin()) {
+          <span class="traffic-light__icon">−</span>
+        }
+      </button>
+      <button
+        class="traffic-light traffic-light--green"
+        data-no-drag
+        [title]="win().max ? 'restore' : 'maximize'"
+        (mouseenter)="hoverMax.set(true)"
+        (mouseleave)="hoverMax.set(false)"
+        (click)="onToggleMax($event)"
+      >
+        @if (hoverMax()) {
+          <span class="traffic-light__icon">{{ win().max ? '↙' : '↗' }}</span>
+        }
+      </button>
+
+      <span class="win-title" [class.win-title--active]="active()">
+        <span class="win-title__dot" [style.color]="accentColor()">●</span>
+        {{ title() }}
+      </span>
+    </div>
+
+    <!-- App content -->
+    <div class="win-body">
+      <ng-content />
+    </div>
+
+    <!-- Resize handles (hidden when maximized) -->
+    @if (!win().max) {
+      <div
+        class="win-resize win-resize--right"
+        data-no-drag
+        (pointerdown)="onResizePointerDown('r', $event)"
+      ></div>
+      <div
+        class="win-resize win-resize--bottom"
+        data-no-drag
+        (pointerdown)="onResizePointerDown('b', $event)"
+      ></div>
+      <div
+        class="win-resize win-resize--br"
+        data-no-drag
+        (pointerdown)="onResizePointerDown('br', $event)"
+      >
+        <svg class="win-grip" viewBox="0 0 14 14" fill="currentColor">
+          <circle cx="11" cy="11" r="1" />
+          <circle cx="11" cy="7" r="1" />
+          <circle cx="7" cy="11" r="1" />
+        </svg>
+      </div>
+    }
+  </div>
+}
