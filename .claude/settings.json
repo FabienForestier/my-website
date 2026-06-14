@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Bash(npm test *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(npm start *)",
+      "Read(//private/tmp/**)",
+      "Bash(npx playwright *)",
+      "Read(//tmp/**)"
     ]
   },
   "hooks": {
