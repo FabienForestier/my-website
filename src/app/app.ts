@@ -1,12 +1,18 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { DesktopShellComponent } from './desktop/pages/desktop-shell/desktop-shell';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss',
+  imports: [DesktopShellComponent],
+  template: '<app-desktop-shell />',
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+        height: 100dvh;
+      }
+    `,
+  ],
 })
-export class App {
-  protected readonly title = signal('my-website');
-}
+export class App {}
